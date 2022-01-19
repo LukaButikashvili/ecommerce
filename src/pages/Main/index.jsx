@@ -1,7 +1,10 @@
+import Header from "../../components/Header/Header";
+
 const MainPage = () => {
   return (
     <div>
-      <h1>Hello from MainPage</h1>
+      <Header />
+      {/* <h1>Hello from MainPage</h1> */}
     </div>
   );
 };

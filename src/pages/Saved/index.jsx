@@ -1,7 +1,10 @@
+import Header from "../../components/Header/Header";
+
 const SavedPage = () => {
   return (
     <div>
-      <h1>Hello from SavedPage</h1>
+      <Header />
+      {/* <h1>Hello from SavedPage</h1> */}
     </div>
   );
 };

@@ -1,7 +1,10 @@
+import Header from "../../components/Header/Header";
+
 const UsersPage = () => {
   return (
     <div>
-      <h1>Hello from UsersPage</h1>
+      <Header />
+      {/* <h1>Hello from UsersPage</h1> */}
     </div>
   );
 };

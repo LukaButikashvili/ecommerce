@@ -1,7 +1,10 @@
+import Header from "../../components/Header/Header";
+
 const UserDetailedPage = () => {
   return (
     <div>
-      <h1>Hello from UserDetailedPage</h1>
+      <Header />
+      {/* <h1>Hello from UserDetailedPage</h1> */}
     </div>
   );
 };
