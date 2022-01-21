@@ -1,0 +1,33 @@
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+}
+.toggleWrapper > div {
+  width: 4rem;
+  height: 2rem;
+  margin: 0 1em;
+  background-color: aqua;
+  position: relative;
+  border-radius: 1em;
+  cursor: pointer;
+}
+.toggleBallLeft {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translate(0, -50%);
+  background-color: green;
+  border-radius: 50%;
+}
+.toggleBallRight {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  transform: translate(0, -50%);
+  background-color: green;
+  border-radius: 50%;
+}

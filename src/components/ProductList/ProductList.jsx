@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import ProductListCSS from "./ProductList.module.css";
 import GridView from "../GridView/GridView";
 import ListView from "../ListView/ListView";
+import Toggle from "../Toggle/Toggle";
 
 const ProductList = () => {
   const { data } = useSelector((state) => state.productReducer);
@@ -13,7 +14,7 @@ const ProductList = () => {
     <div>
       <div className={ProductListCSS.productListTitleWrapper}>
         <h1>Products</h1>
-        <button onClick={() => setShowGridView(!showGridView)}>Toggle</button>
+        <Toggle showGridView={showGridView} setShowGridView={setShowGridView} />
       </div>
       {showGridView ? <GridView data={data} /> : <ListView data={data} />}
     </div>
