@@ -41,13 +41,27 @@ const Carusel = () => {
     setCurrentElementIndex((prevState) => prevState + 1);
   };
 
+  useEffect(() => {
+    if (!randomArray.length) {
+      return;
+    }
+    const timer = setTimeout(() => {
+      showNextSlide();
+    }, 5000);
+    return () => clearTimeout(timer);
+  });
+
   return (
     <>
       {randomArray
         .slice(currentElementIndex, currentElementIndex + 1)
         .map((product) => {
           return (
-            <div key={product.id} className={CaruselCSS.caruselWrapper}>
+            <div
+              key={product.id}
+              className={CaruselCSS.caruselWrapper}
+              style={{ backgroundImage: `url(${product.image})` }}
+            >
               <BiCaretLeft size={80} onClick={() => showToPrevSlide()} />
               <div>
                 <h1>{product.title}</h1>
