@@ -1,0 +1,21 @@
+.listViewWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+}
+.bodyWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5em;
+  background-color: white;
+  padding: 1em;
+}
+.bodyWrapper div {
+  width: 20%;
+  margin-right: 1em;
+}
+.bodyWrapper img {
+  width: 100%;
+}
