@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ListViewCSS from "./ListView.module.css";
 
 const ListView = ({ data }) => {
@@ -8,9 +9,13 @@ const ListView = ({ data }) => {
         return (
           <div key={item.id} className={ListViewCSS.bodyWrapper}>
             <div>
-              <img src={item.image} alt="cloth" />
+              <Link to={`/products/${item.id}`}>
+                <img src={item.image} alt="cloth" />
+              </Link>
             </div>
-            <h1>{item.title}</h1>
+            <h1>
+              <Link to={`/products/${item.id}`}>{item.title}</Link>
+            </h1>
             <h2>Price: {item.price}</h2>
           </div>
         );
