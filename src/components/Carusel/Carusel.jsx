@@ -14,16 +14,17 @@ const Carusel = () => {
   const [currentElementIndex, setCurrentElementIndex] = useState(0);
 
   useEffect(() => {
+    const products = [...data];
     if (data.length) {
       const array = getRandomElementsFromArray(
         PRODUCTS_QUANTITY_ON_CARUSEL,
-        data
+        products
       );
       setRandomArray(array);
     }
-  }, [data]);
+  }, []);
 
-  const showToPrevSlide = () => {
+  const showPrevSlide = () => {
     if (currentElementIndex === 0) {
       setCurrentElementIndex(2);
       return;
@@ -62,7 +63,7 @@ const Carusel = () => {
               className={CaruselCSS.caruselWrapper}
               style={{ backgroundImage: `url(${product.image})` }}
             >
-              <BiCaretLeft size={80} onClick={() => showToPrevSlide()} />
+              <BiCaretLeft size={80} onClick={() => showPrevSlide()} />
               <div>
                 <h1>{product.title}</h1>
                 <h3>Price: {product.price}$</h3>
