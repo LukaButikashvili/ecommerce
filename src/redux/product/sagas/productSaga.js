@@ -3,9 +3,8 @@ import statuses from "../../../config/statuses";
 import { GET_PRODUCTS_SAGA } from "../actions/types";
 
 export function* getProductsSaga() {
+  yield put({ type: statuses.PENDING });
   try {
-    yield put({ type: statuses.PENDING });
-
     const res = yield fetch("https://fakestoreapi.com/products");
     const data = yield res.json();
     yield put({ type: statuses.SUCCESS, payload: { data: data } });
