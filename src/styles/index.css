@@ -9,7 +9,8 @@ ul {
   margin: 0;
 }
 body {
-  background-color: #f1f2f6;
+  /* background-color: #f1f2f6; */
+  background-color: var(--white);
 }
 * {
   box-sizing: border-box;
@@ -21,4 +22,12 @@ a {
 }
 input:focus {
   outline: none;
+}
+:root {
+  --white: #ffffff;
+  --darker-white: #f1f2f6;
+  --light-gray: #dfe4ea;
+  --darker-gray: #ced6e0;
+  --darkest-gray: #a4b0be;
+  --dark: #2f3542;
 }
