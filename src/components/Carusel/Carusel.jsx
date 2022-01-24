@@ -22,6 +22,7 @@ const Carusel = () => {
       );
       setRandomArray(array);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showPrevSlide = () => {
@@ -53,26 +54,27 @@ const Carusel = () => {
   });
 
   return (
-    <>
+    <div className={CaruselCSS.carouselWrapper}>
+      <BiCaretLeft size={80} onClick={() => showPrevSlide()} />
       {randomArray
         .slice(currentElementIndex, currentElementIndex + 1)
         .map((product) => {
           return (
-            <div
-              key={product.id}
-              className={CaruselCSS.caruselWrapper}
-              style={{ backgroundImage: `url(${product.image})` }}
-            >
-              <BiCaretLeft size={80} onClick={() => showPrevSlide()} />
+            <div key={product.id}>
+              <img
+                className={CaruselCSS.carouselImage}
+                src={product.image}
+                alt="cloth"
+              />
               <div>
                 <h1>{product.title}</h1>
                 <h3>Price: {product.price}$</h3>
               </div>
-              <BiCaretRight size={80} onClick={() => showNextSlide()} />
             </div>
           );
         })}
-    </>
+      <BiCaretRight size={80} onClick={() => showNextSlide()} />
+    </div>
   );
 };
 
