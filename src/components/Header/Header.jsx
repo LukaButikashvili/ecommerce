@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { BsCart4 } from "react-icons/bs";
 
@@ -6,6 +7,8 @@ import routes from "../../config/routes";
 import HeaderCSS from "./Header.module.css";
 
 const Header = () => {
+  const cartProducts = useSelector((state) => state.cartReducer);
+
   return (
     <header className={HeaderCSS.header}>
       <div className={HeaderCSS.headerWrapper}>
@@ -39,7 +42,9 @@ const Header = () => {
             <li>
               <div className={HeaderCSS.basketWrapper}>
                 <BsCart4 size={25} />
-                <div className={HeaderCSS.basketItemsQuantity}>0</div>
+                <div className={HeaderCSS.basketItemsQuantity}>
+                  {cartProducts.products.length}
+                </div>
               </div>
             </li>
           </ul>

@@ -4,7 +4,7 @@
   left: 0;
   z-index: 999;
   width: 100%;
-  background-color: #dfe4ea;
+  background-color: var(--white);
 }
 .headerWrapper {
   width: 80%;
