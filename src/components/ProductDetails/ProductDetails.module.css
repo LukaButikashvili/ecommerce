@@ -1,0 +1,36 @@
+.productDetailsWrapper {
+  width: 80%;
+  height: 30rem;
+  margin: auto;
+  margin-top: 10em;
+  display: flex;
+}
+.imageWrapper {
+  margin-right: 2em;
+  width: 80%;
+  height: 100%;
+}
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+}
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.buttonsWrapper {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.buttonsWrapper button {
+  background-color: aqua;
+  width: 5rem;
+  height: 3rem;
+  cursor: pointer;
+  margin-top: 2em;
+}
+.savedButton {
+  margin-right: 1em;
+}
