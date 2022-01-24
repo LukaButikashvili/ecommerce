@@ -4,7 +4,7 @@ import ToggleCSS from "./Toggle.module.css";
 const Toggle = ({ showGridView, setShowGridView }) => {
   return (
     <div className={ToggleCSS.toggleWrapper}>
-      <h3>List View</h3>
+      <h3 className={showGridView ? ToggleCSS.active : ""}>Grid View</h3>
       <div onClick={() => setShowGridView(!showGridView)}>
         <div
           className={
@@ -12,7 +12,7 @@ const Toggle = ({ showGridView, setShowGridView }) => {
           }
         ></div>
       </div>
-      <h3>Grid View</h3>
+      <h3 className={!showGridView ? ToggleCSS.active : ""}>List View</h3>
     </div>
   );
 };
