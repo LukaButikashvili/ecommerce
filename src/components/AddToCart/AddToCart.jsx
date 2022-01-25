@@ -1,10 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addProductToBasketAction,
-  decreaseProductQuantity,
-  increaseProductQuantity,
-} from "../../redux/cart/actions/cartActions";
+import { addProductToBasketAction } from "../../redux/cart/actions/cartActions";
+import QuantityChangerButtons from "../QuantityChangerButtons/QuantityChangerButtons";
+import AddToCartCSS from "./AddToCart.module.css";
 
 const AddToCart = ({ product }) => {
   const dispatch = useDispatch();
@@ -12,7 +10,7 @@ const AddToCart = ({ product }) => {
 
   const addProductToBasket = () => {
     const addNewProductToCart = {
-      newProduct: { productId: product.id, quantity: 1 },
+      newProduct: { productId: product.id, quantity: 1, price: product.price },
     };
 
     dispatch(addProductToBasketAction(addNewProductToCart));
@@ -25,17 +23,19 @@ const AddToCart = ({ product }) => {
   return (
     <>
       {findIndexOfBasketProduct >= 0 ? (
-        <>
-          <button onClick={() => dispatch(decreaseProductQuantity(product.id))}>
-            -
-          </button>
-          <h1>{cartProducts.products[findIndexOfBasketProduct].quantity}</h1>
-          <button onClick={() => dispatch(increaseProductQuantity(product.id))}>
-            +
-          </button>
-        </>
+        <div className={AddToCartCSS.quantityChangerWrapper}>
+          <QuantityChangerButtons
+            id={product.id}
+            quantity={cartProducts.products[findIndexOfBasketProduct].quantity}
+          />
+        </div>
       ) : (
-        <button onClick={() => addProductToBasket()}>Add To Cart</button>
+        <button
+          className={AddToCartCSS.addToCartButton}
+          onClick={() => addProductToBasket()}
+        >
+          Add To Cart
+        </button>
       )}
     </>
   );
