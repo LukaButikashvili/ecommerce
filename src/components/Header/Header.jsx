@@ -40,12 +40,19 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <div className={HeaderCSS.basketWrapper}>
-                <BsCart4 size={25} />
-                <div className={HeaderCSS.basketItemsQuantity}>
-                  {cartProducts.products.length}
+              <NavLink
+                to={routes.CHECKOUT}
+                className={(props) =>
+                  props.isActive ? HeaderCSS.active : null
+                }
+              >
+                <div className={HeaderCSS.basketWrapper}>
+                  <BsCart4 size={25} />
+                  <div className={HeaderCSS.basketItemsQuantity}>
+                    {cartProducts.products.length}
+                  </div>
                 </div>
-              </div>
+              </NavLink>
             </li>
           </ul>
         </nav>
