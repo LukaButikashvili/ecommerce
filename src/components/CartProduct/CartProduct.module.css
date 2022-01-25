@@ -1,0 +1,29 @@
+.cartProductWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+}
+.cartProductWrapper > div {
+  width: 20%;
+  font-weight: bold;
+}
+.cartProductWrapper img {
+  width: 30%;
+  margin-left: 3em;
+}
+.cartProductNameWrapper {
+  padding-right: 2em;
+}
+.cartProductWrapper h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.quantityChangerButtonsWrapper {
+  height: 3rem;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #688093;
+  border-radius: 25px;
+}
