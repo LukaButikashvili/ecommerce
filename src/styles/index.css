@@ -31,3 +31,6 @@ input:focus {
   --darkest-gray: #a4b0be;
   --dark: #2f3542;
 }
+button {
+  cursor: pointer;
+}
