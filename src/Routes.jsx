@@ -8,6 +8,7 @@ import UsersPage from "./pages/Users";
 import UserDetailedPage from "./pages/UserDetailed";
 import SavedPage from "./pages/Saved";
 import CheckoutPage from "./pages/Checkout";
+import NotFoundPage from "./pages/404/404";
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
       <Route path={routes.USER_DETAILED_PAGE} element={<UserDetailedPage />} />
       <Route path={routes.SAVED_PAGE} element={<SavedPage />} />
       <Route path={routes.CHECKOUT} element={<CheckoutPage />} />
+      <Route path={routes.NOT_FOUND} element={<NotFoundPage />} />
     </ReactRoutes>
   );
 };

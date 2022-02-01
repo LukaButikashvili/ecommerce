@@ -4,7 +4,6 @@ import { css } from "@emotion/react";
 
 import Header from "../../components/Header/Header";
 import ProductDetails from "../../components/ProductDetails/ProductDetails";
-import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
 import statuses from "../../config/statuses";
 
 const override = css`
@@ -27,7 +26,6 @@ const ProductPage = () => {
       {status === statuses.SUCCESS && (
         <>
           <ProductDetails />
-          <RelatedProducts />
         </>
       )}
     </div>

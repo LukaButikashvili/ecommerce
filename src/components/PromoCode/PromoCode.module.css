@@ -1,0 +1,19 @@
+.promoCodeWrapper {
+  margin-top: 2em;
+}
+.promoCodeWrapper h1 {
+  font-size: 1rem;
+}
+.promoCodeWrapper form {
+  height: 3.5rem;
+}
+.textInput {
+  height: 100%;
+  width: 70%;
+  padding: 0 1em;
+  font-size: 1.25rem;
+}
+.submitInput {
+  height: 100%;
+  width: 6rem;
+}

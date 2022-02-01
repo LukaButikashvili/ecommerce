@@ -1,0 +1,14 @@
+.usersListViewWrapper {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.usersGridViewWrapper {
+  display: grid;
+  grid-template-columns: 24% 24% 24%;
+  grid-template-rows: 22rem;
+  grid-gap: 4em;
+  justify-content: center;
+}

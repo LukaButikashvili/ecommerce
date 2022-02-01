@@ -1,17 +1,21 @@
-import { Provider } from "react-redux";
+import { useDispatch } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
-import store from "./redux/store";
 import { getProductsAction } from "./redux/product/actions/productActions";
-
-store.dispatch(getProductsAction());
+import { getUsersAction } from "./redux/user/actions/userActions";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsersAction());
+    dispatch(getProductsAction());
+  }, [dispatch]);
+
   return (
     <Router>
-      <Provider store={store}>
-        <Routes />
-      </Provider>
+      <Routes />
     </Router>
   );
 }

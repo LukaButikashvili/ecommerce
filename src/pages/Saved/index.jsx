@@ -1,10 +1,11 @@
 import Header from "../../components/Header/Header";
+import SavedProductsList from "../../components/SavedProductsList/SavedProductsList";
 
 const SavedPage = () => {
   return (
     <div>
       <Header />
-      {/* <h1>Hello from SavedPage</h1> */}
+      <SavedProductsList />
     </div>
   );
 };

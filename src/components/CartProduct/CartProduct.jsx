@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProductFromBasketAction } from "../../redux/cart/actions/cartActions";
 import QuantityChangerButtons from "../QuantityChangerButtons/QuantityChangerButtons";
 import CartProductCSS from "./CartProduct.module.css";
 
 const CartProduct = ({ id, quantity }) => {
+  const dispatch = useDispatch();
   const { data } = useSelector((state) => state.productReducer);
 
   const [cartProduct, setCartProduct] = useState(() => {
@@ -13,7 +15,7 @@ const CartProduct = ({ id, quantity }) => {
 
   return (
     <div className={CartProductCSS.cartProductWrapper}>
-      <div>
+      <div className={CartProductCSS.cartProductImageWrapper}>
         <img src={cartProduct.image} alt="cloth" />
       </div>
       <div className={CartProductCSS.cartProductNameWrapper}>
@@ -26,6 +28,11 @@ const CartProduct = ({ id, quantity }) => {
       </div>
       <div>{cartProduct.price}</div>
       <div>{cartProduct.price * quantity}</div>
+      {/* <button
+        onClick={() => dispatch(removeProductFromBasketAction(cartProduct.id))}
+      >
+        Remove
+      </button> */}
     </div>
   );
 };

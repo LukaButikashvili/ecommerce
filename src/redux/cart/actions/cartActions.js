@@ -12,7 +12,7 @@ const addProductToBasketAction = ({ newProduct }) => {
   };
 };
 
-const removeProductToBasketAction = (id) => {
+const removeProductFromBasketAction = (id) => {
   return {
     type: REMOVE_PRODUCT_FROM_BASKET,
     payload: { id },
@@ -35,7 +35,7 @@ const decreaseProductQuantity = (id) => {
 
 export {
   addProductToBasketAction,
-  removeProductToBasketAction,
+  removeProductFromBasketAction,
   increaseProductQuantity,
   decreaseProductQuantity,
 };

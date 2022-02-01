@@ -1,0 +1,25 @@
+.usersListViewBodyWrapper {
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: beige;
+  margin-bottom: 2em;
+  padding: 2em;
+}
+
+.usersListViewBodyWrapper div {
+  text-align: center;
+}
+
+.usersGridViewBodyWrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: beige;
+}
+.usersGridViewBodyWrapper div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -3,9 +3,8 @@ import { BiCaretLeft, BiCaretRight } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
 import getRandomElementsFromArray from "../../utils/getRandomElements";
+import { RANDOM_PRODUCTS_QUANTITY_IN_CAROUSEL } from "../../config/randomProductsQuantity";
 import CaruselCSS from "./Carusel.module.css";
-
-const PRODUCTS_QUANTITY_ON_CARUSEL = 3;
 
 const Carusel = () => {
   const { data } = useSelector((state) => state.productReducer);
@@ -17,12 +16,31 @@ const Carusel = () => {
     const products = [...data];
     if (data.length) {
       const array = getRandomElementsFromArray(
-        PRODUCTS_QUANTITY_ON_CARUSEL,
+        RANDOM_PRODUCTS_QUANTITY_IN_CAROUSEL,
         products
       );
       setRandomArray(array);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    const changeSlide = (event) => {
+      if (event.code === "ArrowRight") {
+        setCurrentElementIndex((prevState) =>
+          prevState === 2 ? 0 : prevState + 1
+        );
+      }
+      if (event.code === "ArrowLeft") {
+        setCurrentElementIndex((prevState) =>
+          prevState === 0 ? 2 : prevState - 1
+        );
+      }
+    };
+    window.addEventListener("keydown", changeSlide, false);
+    return () => {
+      window.removeEventListener("keydown", changeSlide, false);
+    };
   }, []);
 
   const showPrevSlide = () => {
@@ -43,18 +61,18 @@ const Carusel = () => {
     setCurrentElementIndex((prevState) => prevState + 1);
   };
 
-  useEffect(() => {
-    if (!randomArray.length) {
-      return;
-    }
-    const timer = setTimeout(() => {
-      showNextSlide();
-    }, 5000);
-    return () => clearTimeout(timer);
-  });
+  // useEffect(() => {
+  //   if (!randomArray.length) {
+  //     return;
+  //   }
+  //   const timer = setTimeout(() => {
+  //     showNextSlide();
+  //   }, 5000);
+  //   return () => clearTimeout(timer);
+  // });
 
   return (
-    <div className={CaruselCSS.carouselWrapper}>
+    <div className={CaruselCSS.carouselWrapper} id="carusel">
       <BiCaretLeft size={80} onClick={() => showPrevSlide()} />
       {randomArray
         .slice(currentElementIndex, currentElementIndex + 1)

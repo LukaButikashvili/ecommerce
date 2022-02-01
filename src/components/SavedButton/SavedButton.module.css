@@ -1,0 +1,8 @@
+.addToSavedButton {
+  padding: 1.5em 2.5em;
+  background-color: rgb(44, 180, 44);
+}
+.removeFromSavedButton {
+  padding: 1.5em 2.5em;
+  background-color: rgb(221, 39, 39);
+}

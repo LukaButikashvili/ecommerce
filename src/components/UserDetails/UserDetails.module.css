@@ -1,0 +1,27 @@
+.userDetailsWrapper {
+  width: 80%;
+  margin: auto;
+  margin-top: 9em;
+}
+.userDetailsBodyWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+/* .userDetailsBodyWrapper > div {
+  width: 50%;
+} */
+.userDetailsInfoWrapper > div {
+  display: flex;
+}
+.userDetailsInfoWrapper h1 {
+  font-size: 1.5rem;
+  width: 30%;
+}
+.mapWrapper {
+  width: 70%;
+  height: 30rem;
+}
+.userDetailsInfoWrapper h3 {
+  font-weight: 200;
+  margin-left: 2em;
+}

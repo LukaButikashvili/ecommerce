@@ -5,6 +5,7 @@ const routes = {
   PRODUCT_PAGE: "/products/:id",
   SAVED_PAGE: "/saved",
   CHECKOUT: "/checkout",
+  NOT_FOUND: "*",
 };
 
 export default routes;
