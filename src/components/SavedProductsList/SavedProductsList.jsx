@@ -15,10 +15,23 @@ const SavedProductsList = () => {
         <h1>Saved Items</h1>
         <Toggle showGridView={showGridView} setShowGridView={setShowGridView} />
       </div>
-      <div className={SavedProductsListCSS.listViewWrapper}>
+      <div
+        className={
+          showGridView
+            ? SavedProductsListCSS.gridViewWrapper
+            : SavedProductsListCSS.listViewWrapper
+        }
+      >
         {savedProducts.map((product) => {
           return (
-            <div key={product.id} className={SavedProductsListCSS.bodyWrapper}>
+            <div
+              key={product.id}
+              className={
+                showGridView
+                  ? SavedProductsListCSS.gridViewBodyWrapper
+                  : SavedProductsListCSS.bodyWrapper
+              }
+            >
               <div className={SavedProductsListCSS.imageWrapper}>
                 <Link to={`/products/${product.id}`}>
                   <img src={product.image} alt="cloth" />

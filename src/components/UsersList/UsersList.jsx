@@ -10,7 +10,7 @@ const UsersList = () => {
 
   return (
     <div>
-      <div>
+      <div className={UsersListCSS.usersListHeaderWrapper}>
         <h1>Users</h1>
         <Toggle showGridView={showGridView} setShowGridView={setShowGridView} />
       </div>

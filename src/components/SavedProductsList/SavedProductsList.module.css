@@ -14,6 +14,18 @@
   width: 80%;
   margin: auto;
 }
+.gridViewWrapper {
+  display: grid;
+  grid-template-columns: 24% 24% 24%;
+  grid-template-rows: 25rem;
+  grid-gap: 4em;
+  justify-content: center;
+}
+.gridViewBodyWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .bodyWrapper {
   display: flex;
   justify-content: space-between;

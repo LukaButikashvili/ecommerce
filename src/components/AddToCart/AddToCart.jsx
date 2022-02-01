@@ -17,8 +17,8 @@ const AddToCart = ({ product }) => {
       newProduct: { productId: product.id, quantity: 1, price: product.price },
     };
 
-    dispatch(addProductToBasketAction(addNewProductToCart));
     notify();
+    dispatch(addProductToBasketAction(addNewProductToCart));
   };
 
   const findIndexOfBasketProduct = cartProducts.products.findIndex(
