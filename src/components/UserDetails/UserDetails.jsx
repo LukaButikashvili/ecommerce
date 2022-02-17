@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
-import Map from "../Map/Map";
+import MapLeafLet from "../MapLeafLet/MapLeafLet";
 import UserDetailsCSS from "./UserDetails.module.css";
 import NotFoundPage from "../../pages/404/404";
+import { removeUser } from "../../api";
 
 const initialState = {
   username: "username",
@@ -13,24 +15,62 @@ const initialState = {
     citiy: "city",
     street: "street",
     geolocation: {
-      lat: 0,
-      long: 0,
+      lat: 10,
+      long: 10,
     },
   },
 };
 
+const notify = () => toast.error("You Deleted The User");
+
 const UserDetails = () => {
-  const { data } = useSelector((state) => state.userReducer);
+  let navigate = useNavigate();
+
+  const { users } = useSelector((state) => state.userReducer);
   const { id } = useParams();
 
-  const [user, setUser] = useState(() => initialState);
+  const [user, setUser] = useState(initialState);
+  const [currentPosition, setCurrentPosition] = useState([
+    user.address.geolocation.lat,
+    user.address.geolocation.long,
+  ]);
 
   useEffect(() => {
-    const findUser = data.filter((user) => user.id == id);
-    setUser(findUser[0]);
-  }, [id, data]);
+    let findUser = users.filter((user) => user.id == id);
 
-  console.log(user);
+    if (!findUser.length) {
+      const newUsers = JSON.parse(localStorage.getItem("users")) || [];
+      findUser = newUsers.filter((user) => user.id == id);
+    }
+
+    setUser(findUser[0]);
+    setCurrentPosition([
+      findUser[0].address.geolocation.lat,
+      findUser[0].address.geolocation.long,
+    ]);
+  }, [id, users]);
+
+  const remove = async () => {
+    notify();
+
+    // Remove User From API
+    if (typeof user.id === "number") {
+      const sendRemoveRequest = await removeUser(user.id);
+      if (sendRemoveRequest) {
+        toast.remove();
+        navigate("/users");
+      }
+      return;
+    }
+
+    //Remove Product from localstore
+    const tempProducts = JSON.parse(localStorage.getItem("users"));
+    const newData = tempProducts.filter((item) => item.id != user.id);
+    localStorage.setItem("users", JSON.stringify(newData));
+
+    navigate("/users");
+  };
+
   return (
     <>
       {user ? (
@@ -57,11 +97,19 @@ const UserDetails = () => {
                 <h1>Street:</h1>
                 <h3>{user.address.street}</h3>
               </div>
+              <div>
+                <button
+                  className={UserDetailsCSS.removeButton}
+                  onClick={() => remove()}
+                >
+                  Remove User
+                </button>
+              </div>
             </div>
             <div className={UserDetailsCSS.mapWrapper}>
-              <Map
-                lat={user.address.geolocation.lat}
-                long={user.address.geolocation.long}
+              <MapLeafLet
+                currentPosition={currentPosition}
+                setCurrentPosition={setCurrentPosition}
               />
             </div>
           </div>

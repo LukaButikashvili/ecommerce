@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import AddUser from "../AddUser/AddUser";
 import Toggle from "../Toggle/Toggle";
 import UsersView from "../UsersView/UsersView";
+import SearchBox from "../Searchbox/Searchbox";
 import UsersListCSS from "./UsersList.module.css";
 
 const UsersList = () => {
-  const { data } = useSelector((state) => state.userReducer);
+  const { users } = useSelector((state) => state.userReducer);
   const [showGridView, setShowGridView] = useState(true);
+  const [allUsers, setAllUsers] = useState(() => {
+    const object = JSON.parse(localStorage.getItem("users")) || [];
+    return [...users, ...object];
+  });
 
   return (
-    <div>
+    <div className={UsersListCSS.usersListWrapper}>
+      <div className={UsersListCSS.usersSearchWrapper}>
+        <SearchBox data={allUsers} linkPath="users" />
+        <AddUser setAllUsers={setAllUsers} />
+      </div>
       <div className={UsersListCSS.usersListHeaderWrapper}>
         <h1>Users</h1>
         <Toggle showGridView={showGridView} setShowGridView={setShowGridView} />
@@ -21,7 +31,7 @@ const UsersList = () => {
             : UsersListCSS.usersListViewWrapper
         }
       >
-        {data.map((item) => {
+        {allUsers.map((item) => {
           return (
             <UsersView
               key={item.id}

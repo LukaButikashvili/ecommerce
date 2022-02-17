@@ -1,5 +1,6 @@
 import {
   ADD_PRODUCT_TO_BASKET,
+  CLONE_USERS_CART,
   DECREASE_PRODUCT_QUANTITY,
   INCREASE_PRODUCT_QUANTITY,
   REMOVE_PRODUCT_FROM_BASKET,
@@ -8,7 +9,7 @@ import {
 const initialState = {
   userId: 1,
   date: "",
-  products: [],
+  cartProducts: [],
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -17,47 +18,51 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         date: new Date(),
-        products: [...state.products, action.payload.newProduct],
+        cartProducts: [...state.cartProducts, action.payload.newProduct],
       };
     case REMOVE_PRODUCT_FROM_BASKET:
       return {
         ...state,
         date: new Date(),
-        products: state.products.filter(
+        cartProducts: state.cartProducts.filter(
           (product) => product.productId !== action.payload.id
         ),
       };
     case INCREASE_PRODUCT_QUANTITY:
-      const index = state.products.findIndex(
+      const index = state.cartProducts.findIndex(
         (product) => product.productId === action.payload.id
       );
 
-      let basketProducts = [...state.products];
+      let basketProducts = [...state.cartProducts];
       basketProducts[index] = {
         ...basketProducts[index],
         date: new Date(),
-        quantity: state.products[index].quantity + 1,
+        quantity: state.cartProducts[index].quantity + 1,
       };
 
       return {
         ...state,
-        products: basketProducts,
+        cartProducts: basketProducts,
       };
     case DECREASE_PRODUCT_QUANTITY:
-      const productIndex = state.products.findIndex(
+      const productIndex = state.cartProducts.findIndex(
         (product) => product.productId === action.payload.id
       );
 
-      let prevState = [...state.products];
+      let prevState = [...state.cartProducts];
       prevState[productIndex] = {
         ...prevState[productIndex],
         date: new Date(),
-        quantity: state.products[productIndex].quantity - 1,
+        quantity: state.cartProducts[productIndex].quantity - 1,
       };
-
       return {
         ...state,
-        products: prevState,
+        cartProducts: prevState,
+      };
+    case CLONE_USERS_CART:
+      return {
+        ...state,
+        cartProducts: action.payload.products,
       };
     default:
       return state;

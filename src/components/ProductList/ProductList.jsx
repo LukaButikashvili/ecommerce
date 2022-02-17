@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import ProductListCSS from "./ProductList.module.css";
 import GridView from "../GridView/GridView";
 import ListView from "../ListView/ListView";
 import Toggle from "../Toggle/Toggle";
 
-const ProductList = () => {
-  const { data } = useSelector((state) => state.productReducer);
-
+const ProductList = ({ data }) => {
   const [showGridView, setShowGridView] = useState(true);
 
   return (

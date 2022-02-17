@@ -1,0 +1,16 @@
+.cartProductTitlesWrapper {
+  width: 80%;
+  margin: auto;
+  margin-top: 6em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.compareButton {
+  padding: 1em 2em;
+  font-size: 1.2rem;
+}
+.myCartProductsWrapper {
+  width: 80%;
+  margin: auto;
+}

@@ -10,19 +10,19 @@ const notify = () => toast.success("You added Product to the Cart");
 
 const AddToCart = ({ product }) => {
   const dispatch = useDispatch();
-  const cartProducts = useSelector((state) => state.cartReducer);
+  const { cartProducts } = useSelector((state) => state.cartReducer);
 
   const addProductToBasket = () => {
     const addNewProductToCart = {
-      newProduct: { productId: product.id, quantity: 1, price: product.price },
+      newProduct: { productId: product.id, quantity: 1 },
     };
 
     notify();
     dispatch(addProductToBasketAction(addNewProductToCart));
   };
 
-  const findIndexOfBasketProduct = cartProducts.products.findIndex(
-    (basketProduct) => basketProduct.productId === product.id
+  const findIndexOfBasketProduct = cartProducts.findIndex(
+    (basketProduct) => basketProduct.productId == product.id
   );
 
   return (
@@ -31,7 +31,7 @@ const AddToCart = ({ product }) => {
         <div className={AddToCartCSS.quantityChangerWrapper}>
           <QuantityChangerButtons
             id={product.id}
-            quantity={cartProducts.products[findIndexOfBasketProduct].quantity}
+            quantity={cartProducts[findIndexOfBasketProduct].quantity}
           />
         </div>
       ) : (

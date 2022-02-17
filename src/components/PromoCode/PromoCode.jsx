@@ -17,8 +17,6 @@ const PromoCode = ({ totalPrice, setDiscountPrice }) => {
       100
     ).toFixed(2);
 
-    console.log(calculateDiscountPrice);
-
     if (findPromo.length) {
       setDiscountPrice(calculateDiscountPrice);
       notify();

@@ -1,5 +1,10 @@
 .relatedProductsHeaderWrapper {
   width: 80%;
   margin: auto;
-  margin-top: 10em;
+  margin-top: 5em;
+  margin-bottom: 3em;
+}
+.relatedProductsListWrapper {
+  width: 80%;
+  margin: auto;
 }

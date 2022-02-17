@@ -8,16 +8,19 @@
   justify-content: space-between;
   margin-bottom: 4em;
 }
-.listViewWrapper {
-  display: flex;
-  flex-direction: column;
+.savedProductsListWrapper {
   width: 80%;
   margin: auto;
 }
+
+.listViewWrapper {
+  display: flex;
+  flex-direction: column;
+}
 .gridViewWrapper {
   display: grid;
-  grid-template-columns: 24% 24% 24%;
-  grid-template-rows: 25rem;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 45rem;
   grid-gap: 4em;
   justify-content: center;
 }
@@ -26,29 +29,44 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.gridViewBodyWrapper > div {
+  width: 100%;
+  height: 25rem;
+  margin-right: 1em;
+}
+.gridViewBodyWrapper img {
+  width: 100%;
+  height: 100%;
+}
+
 .bodyWrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5em;
-  background-color: white;
   padding: 1em;
 }
-.imageWrapper {
-  width: 20%;
+.bodyWrapper > div {
+  width: 30%;
+  height: 25rem;
   margin-right: 1em;
 }
-.imageWrapper img {
+.bodyWrapper img {
   width: 100%;
+  height: 100%;
+}
+.bodyWrapper h1 {
+  width: 40%;
+}
+.bodyWrapper h2 {
+  width: 20%;
 }
 
-.savedProductsButtons {
+/* Buttons */
+.buttonsWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
 }
-.removeButton {
-  margin-bottom: 1em;
-  padding: 1.5em 2.5em;
-  background-color: rgba(238, 57, 57, 0.699);
+.buttonsWrapper button {
+  width: 100%;
 }

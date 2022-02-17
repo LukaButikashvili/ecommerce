@@ -1,5 +1,6 @@
 import {
   ADD_PRODUCT_TO_BASKET,
+  CLONE_USERS_CART,
   DECREASE_PRODUCT_QUANTITY,
   INCREASE_PRODUCT_QUANTITY,
   REMOVE_PRODUCT_FROM_BASKET,
@@ -33,9 +34,17 @@ const decreaseProductQuantity = (id) => {
   };
 };
 
+const cloneUsersCart = (products) => {
+  return {
+    type: CLONE_USERS_CART,
+    payload: { products },
+  };
+};
+
 export {
   addProductToBasketAction,
   removeProductFromBasketAction,
   increaseProductQuantity,
   decreaseProductQuantity,
+  cloneUsersCart,
 };

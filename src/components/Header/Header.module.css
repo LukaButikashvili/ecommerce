@@ -5,6 +5,7 @@
   z-index: 9999;
   width: 100%;
   background-color: var(--white);
+  box-shadow: 0 8px 8px -4px var(--light-gray);
 }
 .headerWrapper {
   width: 80%;

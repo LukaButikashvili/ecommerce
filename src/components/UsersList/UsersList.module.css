@@ -1,20 +1,25 @@
-.usersListViewWrapper {
+.usersListWrapper {
   width: 80%;
   margin: auto;
+  margin-top: 10em;
+}
+.usersSearchWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.usersListViewWrapper {
   display: flex;
   flex-direction: column;
 }
 .usersListHeaderWrapper {
-  width: 80%;
-  margin: auto;
-  margin-top: 6em;
   display: flex;
   justify-content: space-between;
 }
 
 .usersGridViewWrapper {
   display: grid;
-  grid-template-columns: 24% 24% 24%;
+  grid-template-columns: 30% 30% 30%;
   grid-template-rows: 22rem;
   grid-gap: 4em;
   justify-content: center;

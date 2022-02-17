@@ -1,0 +1,55 @@
+.listViewWrapper {
+  display: flex;
+  flex-direction: column;
+}
+.gridViewWrapper {
+  display: grid;
+  grid-template-columns: 30% 30% 30%;
+  grid-template-rows: 40rem;
+  grid-gap: 4em;
+  justify-content: center;
+}
+.areSameProducts {
+  background-color: #3ae374;
+  margin-bottom: 1em;
+}
+.areNotSameProducts {
+  background-color: #95a5a6;
+  margin-bottom: 1em;
+}
+.gridViewBodyWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.bodyWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+.gridViewBodyWrapper > div {
+  width: 100%;
+  height: 25rem;
+  margin-right: 1em;
+}
+.gridViewBodyWrapper img {
+  width: 100%;
+  height: 100%;
+}
+
+.bodyWrapper > div {
+  width: 30%;
+  height: 25rem;
+  margin-right: 1em;
+}
+.bodyWrapper img {
+  width: 100%;
+  height: 100%;
+}
+.bodyWrapper h1 {
+  width: 40%;
+}
+.bodyWrapper h2 {
+  width: 20%;
+}

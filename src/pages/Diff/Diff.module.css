@@ -1,0 +1,58 @@
+.diffPageWrapper {
+  width: 80%;
+  margin: auto;
+  margin-top: 8em;
+}
+.diffPageHeaderWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cloneButton {
+  width: 7rem;
+  height: 3rem;
+  font-size: 1.2rem;
+}
+.selectInput {
+  width: 8rem;
+  height: 3rem;
+  font-size: 1.2rem;
+}
+.usersCartsWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.usersCartsWrapper > div {
+  width: 40%;
+}
+
+/* Start Confirmation Modal */
+.confirmationModalWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--dark);
+}
+.confirmationModalWrapper h1 {
+  margin-top: 1em;
+  font-size: 2rem;
+}
+.confirmationModalWrapper p {
+  width: 80%;
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 3.5em;
+}
+.denyButton {
+  border-radius: 5px;
+  background-color: #ff3838;
+  padding: 0.75em 2em;
+  font-size: 1.25rem;
+  margin-right: 2em;
+}
+.confirmButton {
+  border-radius: 5px;
+  background-color: #3ae374;
+  padding: 0.75em 2em;
+  font-size: 1.25rem;
+}

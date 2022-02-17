@@ -2,7 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import UsersViewCSS from "./UsersView.module.css";
 
-const UsersView = ({ fristname, lastname, phone, email, showGridView, id }) => {
+const UsersView = ({
+  firstname,
+  lastname,
+  phone,
+  email,
+  showGridView = true,
+  id,
+}) => {
   return (
     <div
       className={
@@ -13,7 +20,7 @@ const UsersView = ({ fristname, lastname, phone, email, showGridView, id }) => {
     >
       <Link to={`/users/${id}`}>
         <div>
-          <h1>{fristname}</h1>
+          <h1>{firstname}</h1>
           <h1>{lastname}</h1>
         </div>
       </Link>

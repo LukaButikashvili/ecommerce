@@ -1,0 +1,13 @@
+.sortWrapper {
+  width: 10rem;
+  height: 3rem;
+  margin-right: 1em;
+  text-align-last: center;
+}
+.sortWrapper select {
+  width: 100%;
+  height: 100%;
+  font-size: 1.05rem;
+  padding: 0 0.25rem;
+  background-color: var(--darker-gray);
+}

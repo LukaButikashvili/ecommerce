@@ -1,0 +1,107 @@
+.paymentWrapper {
+}
+
+.cardsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2em;
+}
+.cardsWrapper > div {
+  width: 10rem;
+  height: 5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-left: 1em;
+  padding: 1em;
+  cursor: pointer;
+}
+.active {
+  color: blue;
+  border-color: blue !important;
+}
+.cardsWrapper h1 {
+  font-size: 1rem;
+}
+
+.paymentInputsWrapper {
+}
+.cardNumberWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+.cardNumberWrapper > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
+  margin-top: 0.2em;
+}
+.cardNumberWrapper input {
+  font-size: 1.25rem;
+  padding: 0.25em 0.5em;
+  border: none !important;
+  /* border-radius: 5px; */
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.cardIconsWrapper img {
+  height: 2.5rem;
+  width: 4rem;
+  opacity: 0.5;
+}
+.activeCard {
+  opacity: 1 !important;
+}
+.paymentInputsWrapper input {
+  /* font-size: 1.15rem; */
+  border: 1px solid var(--light-gray);
+}
+
+.exparityWrapper {
+  display: flex;
+  margin-bottom: 1em;
+}
+.exparityWrapper > div {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2em;
+}
+.exparityWrapper input {
+  height: 3rem;
+  border-radius: 5px;
+  padding: 0 1em;
+  font-size: 1.25rem;
+  margin-top: 0.25em;
+}
+
+.countriesSelectWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+.select {
+  height: 3rem;
+  border-radius: 5px;
+  padding: 0 1em;
+  font-size: 1.25rem;
+  margin-top: 0.25em;
+  background-color: white;
+  border: 1px solid var(--light-gray);
+}
+
+.buyButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.buyButtonWrapper button {
+  padding: 1em 2.5em;
+  cursor: pointer;
+  border-radius: 5px;
+}

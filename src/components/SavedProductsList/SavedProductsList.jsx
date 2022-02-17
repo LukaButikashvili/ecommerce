@@ -1,53 +1,98 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+
 import Toggle from "../Toggle/Toggle";
 import SavedProductsListCSS from "./SavedProductsList.module.css";
 import AddToCart from "../AddToCart/AddToCart";
+import CartProductsView from "../CartProductsView/CartProductsView";
+import { useSelector } from "react-redux";
 import SavedButton from "../SavedButton/SavedButton";
 
+const notify = () => toast.error("Product Deleted from List");
+
 const SavedProductsList = () => {
-  const savedProducts = useSelector((state) => state.savedReducer);
+  const { products } = useSelector((state) => state.productReducer);
+  console.log(products);
+
   const [showGridView, setShowGridView] = useState(true);
+
+  const [lists, setLists] = useState(() => {
+    const localstorageLists = JSON.parse(localStorage.getItem("lists"));
+    const keys = Object.keys(localstorageLists);
+
+    let listsproducts = [];
+
+    for (let i = 0; i < keys.length; i++) {
+      listsproducts = [...listsproducts, ...localstorageLists[keys[i]]];
+    }
+    return listsproducts;
+  });
+
+  const removeItemFromList = (product) => {
+    const localstorageLists = JSON.parse(localStorage.getItem("lists"));
+    const keys = Object.keys(localstorageLists);
+
+    for (let i = 0; i < keys.length; i++) {
+      console.log(localstorageLists[i]);
+      localstorageLists[i].filter((item) => item.id != product.id);
+    }
+
+    console.log(localstorageLists);
+
+    notify();
+  };
+
   return (
     <div className={SavedProductsListCSS.savedProductsWrapper}>
       <div className={SavedProductsListCSS.savedProductsTitle}>
         <h1>Saved Items</h1>
         <Toggle showGridView={showGridView} setShowGridView={setShowGridView} />
       </div>
-      <div
-        className={
-          showGridView
-            ? SavedProductsListCSS.gridViewWrapper
-            : SavedProductsListCSS.listViewWrapper
-        }
-      >
-        {savedProducts.map((product) => {
-          return (
-            <div
-              key={product.id}
-              className={
-                showGridView
-                  ? SavedProductsListCSS.gridViewBodyWrapper
-                  : SavedProductsListCSS.bodyWrapper
-              }
-            >
-              <div className={SavedProductsListCSS.imageWrapper}>
-                <Link to={`/products/${product.id}`}>
-                  <img src={product.image} alt="cloth" />
-                </Link>
+      <div className={SavedProductsListCSS.savedProductsListWrapper}>
+        <div
+          className={
+            showGridView
+              ? SavedProductsListCSS.gridViewWrapper
+              : SavedProductsListCSS.listViewWrapper
+          }
+        >
+          {lists.map((cartProduct) => {
+            const findProduct = products.find(
+              // eslint-disable-next-line eqeqeq
+              (product) =>
+                product.id == cartProduct.productId || product.id == cartProduct
+            );
+
+            return (
+              <div key={cartProduct.id}>
+                <div
+                  className={
+                    showGridView
+                      ? SavedProductsListCSS.gridViewBodyWrapper
+                      : SavedProductsListCSS.bodyWrapper
+                  }
+                >
+                  <div className={SavedProductsListCSS.imageWrapper}>
+                    <Link to={`/products/${findProduct.id}`}>
+                      <img src={findProduct.image} alt="cloth" />
+                    </Link>
+                  </div>
+                  <h1>
+                    <Link to={`/products/${findProduct.id}`}>
+                      {findProduct.title}
+                    </Link>
+                  </h1>
+                  <h2>Price: {findProduct.price}</h2>
+                  <div className={SavedProductsListCSS.buttonsWrapper}>
+                    <SavedButton product={findProduct} />
+                    <AddToCart product={findProduct} />
+                  </div>
+                </div>
               </div>
-              <h1>
-                <Link to={`/products/${product.id}`}>{product.title}</Link>
-              </h1>
-              <h2>Price: {product.price}</h2>
-              <div className={SavedProductsListCSS.savedProductsButtons}>
-                <SavedButton product={product} />
-                <AddToCart product={product} />
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

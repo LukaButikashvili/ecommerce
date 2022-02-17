@@ -1,5 +1,6 @@
 import statuses from "../../../config/statuses";
 import {
+  ADD_PRODUCT,
   FETCHING_PRODUCT_STATUS_ERROR,
   FETCHING_PRODUCT_STATUS_PENDING,
   FETCHING_PRODUCT_STATUS_SUCCESS,
@@ -7,7 +8,7 @@ import {
 
 const initialState = {
   status: statuses.INITIAL,
-  data: [],
+  products: [],
   errorMessage: "",
 };
 
@@ -22,7 +23,7 @@ export const productReducer = (state = initialState, action) => {
     case FETCHING_PRODUCT_STATUS_SUCCESS: {
       return {
         ...state,
-        data: action.payload.data,
+        products: action.payload.data,
         status: statuses.SUCCESS,
       };
     }
@@ -31,6 +32,12 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         status: statuses.ERROR,
         errorMessage: action.payload.errorMessage,
+      };
+    }
+    case ADD_PRODUCT: {
+      return {
+        ...state,
+        products: [...state.products, action.payload.product],
       };
     }
     default:

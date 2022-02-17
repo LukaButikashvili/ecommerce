@@ -7,15 +7,21 @@
   display: flex;
   justify-content: space-between;
 }
-/* .userDetailsBodyWrapper > div {
-  width: 50%;
-} */
+.userDetailsInfoWrapper {
+  width: 30%;
+}
 .userDetailsInfoWrapper > div {
   display: flex;
 }
 .userDetailsInfoWrapper h1 {
   font-size: 1.5rem;
   width: 30%;
+}
+.removeButton {
+  padding: 1em 1em;
+  font-size: 1.2rem;
+  margin-top: 3em;
+  background-color: #ff3838;
 }
 .mapWrapper {
   width: 70%;

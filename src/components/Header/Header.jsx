@@ -7,7 +7,7 @@ import routes from "../../config/routes";
 import HeaderCSS from "./Header.module.css";
 
 const Header = () => {
-  const cartProducts = useSelector((state) => state.cartReducer);
+  const { cartProducts } = useSelector((state) => state.cartReducer);
 
   return (
     <header className={HeaderCSS.header}>
@@ -49,7 +49,7 @@ const Header = () => {
                 <div className={HeaderCSS.basketWrapper}>
                   <BsCart4 size={25} />
                   <div className={HeaderCSS.basketItemsQuantity}>
-                    {cartProducts.products.length}
+                    {cartProducts.length}
                   </div>
                 </div>
               </NavLink>

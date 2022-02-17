@@ -9,6 +9,10 @@ import UserDetailedPage from "./pages/UserDetailed";
 import SavedPage from "./pages/Saved";
 import CheckoutPage from "./pages/Checkout";
 import NotFoundPage from "./pages/404/404";
+import Lists from "./pages/Lists/Lists";
+import Diff from "./pages/Diff/Diff";
+import SelectedUserCart from "./components/SelectedUserCart/SelectedUserCart";
+import ListDetailed from "./pages/ListDetailed/ListDetailed";
 
 const Routes = () => {
   return (
@@ -19,6 +23,11 @@ const Routes = () => {
       <Route path={routes.USER_DETAILED_PAGE} element={<UserDetailedPage />} />
       <Route path={routes.SAVED_PAGE} element={<SavedPage />} />
       <Route path={routes.CHECKOUT} element={<CheckoutPage />} />
+      <Route path={routes.LISTS} element={<Lists />} />
+      <Route path={routes.LISTSDETAILED} element={<ListDetailed />} />
+      <Route path={routes.DIFF} element={<Diff />}>
+        <Route path={routes.DIFFCOMPARE} element={<SelectedUserCart />} />
+      </Route>
       <Route path={routes.NOT_FOUND} element={<NotFoundPage />} />
     </ReactRoutes>
   );

@@ -1,0 +1,27 @@
+.listProductsWrapper {
+  background-color: beige;
+  padding: 2em;
+  margin-bottom: 2em;
+}
+.listProductsTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.listProductsTitleWrapper > div {
+  width: 16rem;
+  display: flex;
+  justify-content: space-between;
+}
+.listProductsTitleWrapper button {
+  padding: 1.25em 3em;
+}
+.productsWrapper {
+  display: flex;
+  align-items: center;
+}
+.listProductsImage {
+  width: 5rem;
+  height: 5rem;
+  margin-right: 1em;
+}

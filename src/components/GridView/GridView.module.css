@@ -1,6 +1,7 @@
 .gridViewWrapper {
+  width: 100%;
   display: grid;
-  grid-template-columns: 24% 24% 24%;
+  grid-template-columns: 30% 30% 30%;
   grid-template-rows: 35rem;
   grid-gap: 4em;
   justify-content: center;

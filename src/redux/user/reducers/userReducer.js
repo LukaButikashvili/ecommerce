@@ -7,7 +7,7 @@ import {
 
 const initialState = {
   status: statuses.INITIAL,
-  data: [],
+  users: [],
   errorMessage: "",
 };
 
@@ -22,7 +22,7 @@ const userReducer = (state = initialState, action) => {
     case FETCHING_USERS_STATUS_SUCCESS: {
       return {
         ...state,
-        data: action.payload.data,
+        users: action.payload.data,
         status: statuses.SUCCESS,
       };
     }

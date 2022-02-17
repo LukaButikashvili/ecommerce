@@ -7,17 +7,17 @@ import { RANDOM_PRODUCTS_QUANTITY_IN_CAROUSEL } from "../../config/randomProduct
 import CaruselCSS from "./Carusel.module.css";
 
 const Carusel = () => {
-  const { data } = useSelector((state) => state.productReducer);
+  const { products } = useSelector((state) => state.productReducer);
 
   const [randomArray, setRandomArray] = useState([]);
   const [currentElementIndex, setCurrentElementIndex] = useState(0);
 
   useEffect(() => {
-    const products = [...data];
-    if (data.length) {
+    const tempProducts = [...products];
+    if (tempProducts.length) {
       const array = getRandomElementsFromArray(
         RANDOM_PRODUCTS_QUANTITY_IN_CAROUSEL,
-        products
+        tempProducts
       );
       setRandomArray(array);
     }

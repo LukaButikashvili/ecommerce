@@ -1,61 +1,95 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
-import {
-  addProductToSavedAction,
-  removeProductFromSavedAction,
-} from "../../redux/saved/actions/savedActions";
 import SavedButtonCSS from "./SavedButton.module.css";
 
-const notifySuccess = () => toast.success("Product Added to Saved");
-const notify = () => toast.error("Product Deleted from Saved");
+const notifySuccess = (name) => toast.success(`Product Added to ${name} List`);
+const notify = () => toast.error("Product Deleted from List");
 
 const SavedButton = ({ product }) => {
-  const dispatch = useDispatch();
-  const savedProducts = useSelector((state) => state.savedReducer);
-
-  const [productIsSaved, setProductIsSaved] = useState(false);
+  const [lists, setLists] = useState({ data: {}, listName: "" });
 
   useEffect(() => {
-    const findProduct = savedProducts.filter((item) => item.id === product.id);
+    const tempLists = JSON.parse(localStorage.getItem("lists")) || {};
+    const keys = Object.keys(tempLists);
 
-    console.log(findProduct);
-    if (findProduct.length) {
-      setProductIsSaved(true);
-    } else {
-      setProductIsSaved(false);
+    let listName = "";
+
+    for (let i = 0; i < keys.length; i++) {
+      for (let k = 0; k < tempLists[keys[i]].length; k++) {
+        if (tempLists[keys[i]][k] == product.id) {
+          listName = keys[i];
+          break;
+        }
+      }
     }
-  }, [savedProducts, product]);
+    setLists(() => {
+      return {
+        listName: listName,
+        data: tempLists,
+      };
+    });
+  }, [product]);
 
-  const removeProduct = () => {
-    dispatch(removeProductFromSavedAction(product.id));
-    notify();
+  const changeListForProduct = (e) => {
+    const currentValue = e.target.value;
+    const tempLists = { ...lists.data };
+
+    tempLists[currentValue].push(product.id);
+    localStorage.setItem("lists", JSON.stringify(tempLists));
+    setLists(() => {
+      return { data: tempLists, listName: currentValue };
+    });
+    notifySuccess(currentValue);
   };
 
-  const addProduct = () => {
-    dispatch(addProductToSavedAction(product));
-    notifySuccess();
+  const removeItemFromList = () => {
+    const tempList = { ...lists.data };
+    const removeItem = tempList[lists.listName].filter(
+      (item) => item !== product.id
+    );
+    tempList[lists.listName] = removeItem;
+
+    localStorage.setItem("lists", JSON.stringify(tempList));
+    setLists(() => {
+      return { data: tempList, listName: "" };
+    });
+    notify();
   };
 
   return (
     <>
-      {productIsSaved ? (
+      {lists.listName ? (
         <button
-          className={SavedButtonCSS.removeFromSavedButton}
-          onClick={() => removeProduct()}
+          onClick={() => removeItemFromList()}
+          className={SavedButtonCSS.removeFromLists}
         >
-          Remove From Saved
+          Remove Product From "<span>{lists.listName}</span>" List
         </button>
       ) : (
-        <button
-          className={SavedButtonCSS.addToSavedButton}
-          onClick={() => addProduct()}
+        <select
+          className={SavedButtonCSS.listsSelector}
+          name="listSelector"
+          defaultValue=""
+          onChange={(e) => changeListForProduct(e)}
+          disabled={lists.listName}
         >
-          Add To Saved
-        </button>
+          <option value="" selected={lists.listName === ""} disabled hidden>
+            Select List
+          </option>
+          {Object.keys(lists.data).map((list) => {
+            return (
+              <option
+                key={list}
+                value={list}
+                selected={lists.listName === list}
+              >
+                {list}
+              </option>
+            );
+          })}
+        </select>
       )}
-      <Toaster />
     </>
   );
 };

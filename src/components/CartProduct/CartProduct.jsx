@@ -6,10 +6,10 @@ import CartProductCSS from "./CartProduct.module.css";
 
 const CartProduct = ({ id, quantity }) => {
   const dispatch = useDispatch();
-  const { data } = useSelector((state) => state.productReducer);
+  const { products } = useSelector((state) => state.productReducer);
 
   const [cartProduct, setCartProduct] = useState(() => {
-    const findItem = data.filter((item) => item.id === id);
+    const findItem = products.filter((item) => item.id === id);
     return findItem[0];
   });
 

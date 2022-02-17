@@ -5,6 +5,10 @@ const routes = {
   PRODUCT_PAGE: "/products/:id",
   SAVED_PAGE: "/saved",
   CHECKOUT: "/checkout",
+  LISTS: "/lists",
+  LISTSDETAILED: "/lists/:listName",
+  DIFF: "/diff/*",
+  DIFFCOMPARE: ":userId",
   NOT_FOUND: "*",
 };
 

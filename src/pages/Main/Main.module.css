@@ -1,0 +1,9 @@
+.MainBodyWrapper {
+  width: 80%;
+  margin: auto;
+}
+.filtersWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
