@@ -1,6 +1,7 @@
 import statuses from "../../../config/statuses";
 import {
   ADD_PRODUCT,
+  REMOVE_PRODUCT,
   FETCHING_PRODUCT_STATUS_ERROR,
   FETCHING_PRODUCT_STATUS_PENDING,
   FETCHING_PRODUCT_STATUS_SUCCESS,
@@ -23,7 +24,7 @@ export const productReducer = (state = initialState, action) => {
     case FETCHING_PRODUCT_STATUS_SUCCESS: {
       return {
         ...state,
-        products: action.payload.data,
+        products: [...state.products, ...action.payload.data],
         status: statuses.SUCCESS,
       };
     }
@@ -38,6 +39,14 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         products: [...state.products, action.payload.product],
+      };
+    }
+    case REMOVE_PRODUCT: {
+      return {
+        ...state,
+        products: state.products.filter(
+          (product) => product.id != action.payload.id
+        ),
       };
     }
     default:

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+import defaultProductImage from "../../assets/defaultImages/defaultProduct.png";
 import CartProductsViewCSS from "./CartProductsView.module.css";
 
 const CartProductsView = ({
@@ -26,15 +27,15 @@ const CartProductsView = ({
             (product) =>
               product.id == cartProduct.productId || product.id == cartProduct
           );
-
           return (
             <div
-              key={cartProduct.id || cartProduct}
+              key={findProduct.id}
               className={
-                colorSameProducts &&
-                (cartProduct.areSame
-                  ? CartProductsViewCSS.areSameProducts
-                  : CartProductsViewCSS.areNotSameProducts)
+                colorSameProducts
+                  ? cartProduct.areSame
+                    ? CartProductsViewCSS.areSameProducts
+                    : CartProductsViewCSS.areNotSameProducts
+                  : ""
               }
             >
               <div
@@ -46,7 +47,11 @@ const CartProductsView = ({
               >
                 <div className={CartProductsViewCSS.imageWrapper}>
                   <Link to={`/products/${findProduct.id}`}>
-                    <img src={findProduct.image} alt="cloth" />
+                    {findProduct.image ? (
+                      <img src={findProduct.image} alt="cloth" />
+                    ) : (
+                      <img src={defaultProductImage} alt="cloth" />
+                    )}
                   </Link>
                 </div>
                 <h1>

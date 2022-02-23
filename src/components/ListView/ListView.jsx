@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ListViewCSS from "./ListView.module.css";
+import defaultProductImage from "../../assets/defaultImages/defaultProduct.png";
 
 const ListView = ({ data }) => {
   return (
@@ -10,7 +11,11 @@ const ListView = ({ data }) => {
           <div key={item.id} className={ListViewCSS.bodyWrapper}>
             <div className={ListViewCSS.listViewImageWrapper}>
               <Link to={`/products/${item.id}`}>
-                <img src={item.image} alt="cloth" />
+                {item.image ? (
+                  <img src={item.image} alt="cloth" />
+                ) : (
+                  <img src={defaultProductImage} alt="cloth" />
+                )}
               </Link>
             </div>
             <div className={ListViewCSS.listViewTitleWrapper}>

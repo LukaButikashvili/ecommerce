@@ -9,10 +9,7 @@ import UsersListCSS from "./UsersList.module.css";
 const UsersList = () => {
   const { users } = useSelector((state) => state.userReducer);
   const [showGridView, setShowGridView] = useState(true);
-  const [allUsers, setAllUsers] = useState(() => {
-    const object = JSON.parse(localStorage.getItem("users")) || [];
-    return [...users, ...object];
-  });
+  const [allUsers, setAllUsers] = useState(users);
 
   return (
     <div className={UsersListCSS.usersListWrapper}>

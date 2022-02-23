@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import GridViewCSS from "./GridView.module.css";
+import defaultProductImage from "../../assets/defaultImages/defaultProduct.png";
 
 const GridView = ({ data }) => {
   return (
@@ -10,7 +11,11 @@ const GridView = ({ data }) => {
           <div key={item.id}>
             <div className={GridViewCSS.imageWrapper}>
               <Link to={`/products/${item.id}`}>
-                <img src={item.image} alt="cloth" />
+                {item.image ? (
+                  <img src={item.image} alt="cloth" />
+                ) : (
+                  <img src={defaultProductImage} alt="cloth" />
+                )}
               </Link>
             </div>
             <h2>

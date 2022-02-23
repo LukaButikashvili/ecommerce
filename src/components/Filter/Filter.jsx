@@ -6,10 +6,7 @@ import FilterCSS from "./Filter.module.css";
 const Filter = ({ changeState }) => {
   const { products } = useSelector((state) => state.productReducer);
 
-  const [allProducts, setAllProducts] = useState(() => {
-    const localstorageData = JSON.parse(localStorage.getItem("products")) || [];
-    return [...products, ...localstorageData];
-  });
+  const [allProducts, setAllProducts] = useState(products);
   const [categories, setCategories] = useState([]);
   const [selectedValue, setSelectedValue] = useState("none");
 

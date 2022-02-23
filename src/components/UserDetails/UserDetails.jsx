@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 import MapLeafLet from "../MapLeafLet/MapLeafLet";
 import UserDetailsCSS from "./UserDetails.module.css";
 import NotFoundPage from "../../pages/404/404";
-import { removeUser } from "../../api";
+import localStorageKeys from "../../config/localStorageKeys";
+import { removeUserAction } from "../../redux/user/actions/userActions";
 
 const initialState = {
   username: "username",
@@ -21,9 +22,10 @@ const initialState = {
   },
 };
 
-const notify = () => toast.error("You Deleted The User");
+const notify = () => toast.error("Product has been deleted");
 
 const UserDetails = () => {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   const { users } = useSelector((state) => state.userReducer);
@@ -39,7 +41,8 @@ const UserDetails = () => {
     let findUser = users.filter((user) => user.id == id);
 
     if (!findUser.length) {
-      const newUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const newUsers =
+        JSON.parse(localStorage.getItem(localStorageKeys.USERS)) || [];
       findUser = newUsers.filter((user) => user.id == id);
     }
 
@@ -53,26 +56,20 @@ const UserDetails = () => {
   const remove = async () => {
     notify();
 
-    // Remove User From API
-    if (typeof user.id === "number") {
-      const sendRemoveRequest = await removeUser(user.id);
-      if (sendRemoveRequest) {
-        toast.remove();
-        navigate("/users");
-      }
-      return;
-    }
+    dispatch(removeUserAction(user.id));
 
     //Remove Product from localstore
-    const tempProducts = JSON.parse(localStorage.getItem("users"));
+    const tempProducts = JSON.parse(
+      localStorage.getItem(localStorageKeys.USERS)
+    );
     const newData = tempProducts.filter((item) => item.id != user.id);
-    localStorage.setItem("users", JSON.stringify(newData));
-
+    localStorage.setItem(localStorageKeys.USERS, JSON.stringify(newData));
     navigate("/users");
   };
 
   return (
     <>
+      <Toaster />
       {user ? (
         <div className={UserDetailsCSS.userDetailsWrapper}>
           <div className={UserDetailsCSS.userDetailsBodyWrapper}>

@@ -16,20 +16,18 @@ const MainPage = () => {
   const { status, products } = useSelector((state) => state.productReducer);
 
   const [state, setState] = useState({
-    data: [],
+    data: [...products],
     sorted: "none",
     filtered: "none",
   });
 
-  useEffect(() => {
-    const localstorageData = JSON.parse(localStorage.getItem("products")) || [];
-
-    setState({
-      data: [...products, ...localstorageData],
-      sorted: "none",
-      filtered: "none",
-    });
-  }, [products]);
+  // useEffect(() => {
+  //   setState({
+  //     data: products,
+  //     sorted: "none",
+  //     filtered: "none",
+  //   });
+  // }, [products]);
 
   return (
     <div>

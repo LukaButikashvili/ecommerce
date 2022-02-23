@@ -62,6 +62,7 @@ const Payment = () => {
               type="number"
               placeholder="1234 1234 1234 1234"
               onChange={(e) => findCardType(e)}
+              required
             />
             <div className={PaymentCSS.cardIconsWrapper}>
               <img
@@ -104,17 +105,18 @@ const Payment = () => {
               format="##/##"
               placeholder="MM/YY"
               mask={["M", "M", "Y", "Y"]}
+              required
             />
             {/* <input type="text" placeholder="MM/YY" /> */}
           </div>
           <div>
             <label>CVC</label>
-            <input type="text" placeholder="CVC" max="3" />
+            <input type="text" placeholder="CVC" max="3" required />
           </div>
         </div>
         <div className={PaymentCSS.countriesSelectWrapper}>
           <label>Country</label>
-          <select className={PaymentCSS.select}>
+          <select className={PaymentCSS.select} required>
             <option value="" selected disabled hidden>
               Countries
             </option>

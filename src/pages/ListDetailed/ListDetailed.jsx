@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import CartProductsView from "../../components/CartProductsView/CartProductsView";
 import Header from "../../components/Header/Header";
 import Loader from "../../components/Loader/Loader";
+import localStorageKeys from "../../config/localStorageKeys";
 import statuses from "../../config/statuses";
 import ListDetailedCSS from "./ListDetailed.module.css";
 
@@ -12,7 +13,8 @@ const ListDetailed = () => {
   const { status } = useSelector((state) => state.productReducer);
 
   const [listProducts, setListProducts] = useState(() => {
-    const tempListsProducts = JSON.parse(localStorage.getItem("lists")) || {};
+    const tempListsProducts =
+      JSON.parse(localStorage.getItem(localStorageKeys.LISTS)) || {};
 
     return tempListsProducts[listName];
   });

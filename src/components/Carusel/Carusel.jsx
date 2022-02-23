@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import getRandomElementsFromArray from "../../utils/getRandomElements";
 import { RANDOM_PRODUCTS_QUANTITY_IN_CAROUSEL } from "../../config/randomProductsQuantity";
 import CaruselCSS from "./Carusel.module.css";
+import defaultProductImage from "../../assets/defaultImages/defaultProduct.png";
 
 const Carusel = () => {
   const { products } = useSelector((state) => state.productReducer);
@@ -79,11 +80,15 @@ const Carusel = () => {
         .map((product) => {
           return (
             <div key={product.id}>
-              <img
-                className={CaruselCSS.carouselImage}
-                src={product.image}
-                alt="cloth"
-              />
+              {product.image ? (
+                <img
+                  className={CaruselCSS.carouselImage}
+                  src={product.image}
+                  alt="cloth"
+                />
+              ) : (
+                <img src={defaultProductImage} alt="cloth" />
+              )}
               <div>
                 <h1>{product.title}</h1>
                 <h3>Price: {product.price}$</h3>

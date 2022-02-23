@@ -10,6 +10,7 @@ import DiffCSS from "./Diff.module.css";
 import Modal from "../../components/Modal/Modal";
 import CartProductsView from "../../components/CartProductsView/CartProductsView";
 import statuses from "../../config/statuses";
+import localStorageKeys from "../../config/localStorageKeys";
 
 const Diff = () => {
   let navigate = useNavigate();
@@ -42,6 +43,7 @@ const Diff = () => {
       return;
     }
 
+    // Find selected user cart
     const findUserCart = usersCarts.find((cart) => {
       return cart.userId == selectedValue;
     });
@@ -58,8 +60,26 @@ const Diff = () => {
   }, [selectedValue, usersCarts]);
 
   const cloneCart = () => {
-    dispatch(cloneUsersCart(selectedUserCart));
+    const tempCart = [...selectedUserCart];
+    const newCart = tempCart.map((item) => {
+      return {
+        productId: item.productId,
+        quantity: item.quantity,
+      };
+    });
+
+    dispatch(cloneUsersCart(newCart));
     setMyCart(selectedUserCart);
+
+    localStorage.setItem(
+      localStorageKeys.CART,
+      JSON.stringify({
+        date: new Date(),
+        id: 1,
+        cartProducts: newCart,
+      })
+    );
+
     setShowModal(false);
   };
 
@@ -80,7 +100,7 @@ const Diff = () => {
             value={selectedValue}
             onChange={(e) => setSelectedValue(e.target.value)}
           >
-            <option key="" value="" selected disabled hidden>
+            <option key="" value="" disabled hidden>
               Select User
             </option>
             {users.map((item) => {

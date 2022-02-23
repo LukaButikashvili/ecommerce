@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { nanoid } from "nanoid";
+import toast, { Toaster } from "react-hot-toast";
 
 import Modal from "../Modal/Modal";
 import MapLeafLet from "../MapLeafLet/MapLeafLet";
 import AddUserCSS from "./AddUser.module.css";
 import { postUser } from "../../api";
+import localStorageKeys from "../../config/localStorageKeys";
+import { useDispatch } from "react-redux";
+import { addUserAction } from "../../redux/user/actions/userActions";
+
+const notify = () => toast.success("User has been added");
 
 const AddUser = ({ setAllUsers }) => {
+  const dispatch = useDispatch();
   const [openModal, setOpenModal] = useState(false);
   const [currentPosition, setCurrentPosition] = useState([10, 10]);
 
   const createUser = async (e) => {
     e.preventDefault();
+
+    notify();
 
     const newUser = {
       id: nanoid(),
@@ -36,13 +45,14 @@ const AddUser = ({ setAllUsers }) => {
     };
 
     // Post user
+    dispatch(addUserAction(newUser));
     // const res = await postUser(newUser);
 
     // Add user to localstorage
     const getUsersFromLocalstorage =
-      JSON.parse(localStorage.getItem("users")) || [];
+      JSON.parse(localStorage.getItem(localStorageKeys.USERS)) || [];
     const newUsersList = [...getUsersFromLocalstorage, newUser];
-    localStorage.setItem("users", JSON.stringify(newUsersList));
+    localStorage.setItem(localStorageKeys.USERS, JSON.stringify(newUsersList));
 
     setAllUsers((allUsers) => [...allUsers, newUser]);
 
@@ -51,6 +61,7 @@ const AddUser = ({ setAllUsers }) => {
 
   return (
     <>
+      <Toaster />
       <div className={AddUserCSS.addUserButton}>
         <button onClick={() => setOpenModal(true)}>Add User</button>
       </div>

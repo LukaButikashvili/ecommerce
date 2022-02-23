@@ -8,6 +8,7 @@ import AddToCart from "../AddToCart/AddToCart";
 import CartProductsView from "../CartProductsView/CartProductsView";
 import { useSelector } from "react-redux";
 import SavedButton from "../SavedButton/SavedButton";
+import localStorageKeys from "../../config/localStorageKeys";
 
 const notify = () => toast.error("Product Deleted from List");
 
@@ -18,7 +19,9 @@ const SavedProductsList = () => {
   const [showGridView, setShowGridView] = useState(true);
 
   const [lists, setLists] = useState(() => {
-    const localstorageLists = JSON.parse(localStorage.getItem("lists"));
+    const localstorageLists = JSON.parse(
+      localStorage.getItem(localStorageKeys.LISTS)
+    );
     const keys = Object.keys(localstorageLists);
 
     let listsproducts = [];
@@ -30,15 +33,15 @@ const SavedProductsList = () => {
   });
 
   const removeItemFromList = (product) => {
-    const localstorageLists = JSON.parse(localStorage.getItem("lists"));
+    const localstorageLists = JSON.parse(
+      localStorage.getItem(localStorageKeys.LISTS)
+    );
     const keys = Object.keys(localstorageLists);
 
     for (let i = 0; i < keys.length; i++) {
       console.log(localstorageLists[i]);
       localstorageLists[i].filter((item) => item.id != product.id);
     }
-
-    console.log(localstorageLists);
 
     notify();
   };

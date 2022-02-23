@@ -1,39 +1,47 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+
 import Header from "../../components/Header/Header";
 import ListsProduct from "../../components/ListsProduct/ListsProduct";
 import Loader from "../../components/Loader/Loader";
 import Modal from "../../components/Modal/Modal";
+import localStorageKeys from "../../config/localStorageKeys";
 import statuses from "../../config/statuses";
+import { addListAction } from "../../redux/lists/actions/listsActions";
 import ListsCSS from "./Lists.module.css";
 
+const notify = () => toast.success("List has been added");
+
 const Lists = () => {
+  const dispatch = useDispatch();
   const { status } = useSelector((state) => state.productReducer);
+  const lists = useSelector((state) => state.listsReducer);
 
   const [openModal, setOpenModal] = useState(false);
-  const [listsItems, setListsItems] = useState(() => {
-    return JSON.parse(localStorage.getItem("lists")) || {};
-  });
 
   const createList = (e) => {
     e.preventDefault();
     const listName = e.target.title.value;
-    const object = JSON.parse(localStorage.getItem("lists")) || {};
+    const tempList = { ...lists };
 
     if (!listName) {
       setOpenModal(false);
       return;
     }
 
-    if (object.hasOwnProperty(listName)) {
+    if (tempList.hasOwnProperty(listName)) {
       setOpenModal(false);
       return;
     }
 
-    object[listName] = [];
+    tempList[listName] = [];
 
-    localStorage.setItem("lists", JSON.stringify(object));
-    setListsItems(object);
+    notify();
+
+    localStorage.setItem(localStorageKeys.LISTS, JSON.stringify(tempList));
+    dispatch(addListAction(listName));
+
     setOpenModal(false);
   };
 
@@ -50,15 +58,10 @@ const Lists = () => {
             <button onClick={() => setOpenModal(true)}>Add</button>
           </div>
           <div>
-            {Object.keys(listsItems).map((item) => {
+            {Object.keys(lists).map((item) => {
               return (
                 <div key={item}>
-                  <ListsProduct
-                    listName={item}
-                    listsProducts={listsItems[item]}
-                    listsItems={listsItems}
-                    setListsItems={setListsItems}
-                  />
+                  <ListsProduct listName={item} listsProducts={lists[item]} />
                 </div>
               );
             })}

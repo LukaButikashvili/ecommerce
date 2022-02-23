@@ -7,7 +7,6 @@ import CartProductsView from "../CartProductsView/CartProductsView";
 
 const SelectedUserCart = () => {
   const [setMyCart, selectedUserCart, setSelectedUserCart] = useOutletContext();
-  console.log(selectedUserCart);
 
   const { cartProducts } = useSelector((state) => state.cartReducer);
   const { userId } = useParams();

@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import localStorageKeys from "../../config/localStorageKeys";
+import {
+  addProductToListAction,
+  removeProducFromListAction,
+} from "../../redux/lists/actions/listsActions";
 
 import SavedButtonCSS from "./SavedButton.module.css";
 
@@ -7,83 +13,81 @@ const notifySuccess = (name) => toast.success(`Product Added to ${name} List`);
 const notify = () => toast.error("Product Deleted from List");
 
 const SavedButton = ({ product }) => {
-  const [lists, setLists] = useState({ data: {}, listName: "" });
+  const dispatch = useDispatch();
+  const lists = useSelector((state) => state.listsReducer);
 
+  const [name, setName] = useState("");
+
+  // Find list name where product is
   useEffect(() => {
-    const tempLists = JSON.parse(localStorage.getItem("lists")) || {};
-    const keys = Object.keys(tempLists);
+    const keys = Object.keys(lists);
 
     let listName = "";
 
     for (let i = 0; i < keys.length; i++) {
-      for (let k = 0; k < tempLists[keys[i]].length; k++) {
-        if (tempLists[keys[i]][k] == product.id) {
+      for (let k = 0; k < lists[keys[i]].length; k++) {
+        if (lists[keys[i]][k] == product.id) {
           listName = keys[i];
           break;
         }
       }
     }
-    setLists(() => {
-      return {
-        listName: listName,
-        data: tempLists,
-      };
-    });
+
+    setName(listName);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
 
-  const changeListForProduct = (e) => {
+  const addProductToList = (e) => {
     const currentValue = e.target.value;
-    const tempLists = { ...lists.data };
 
+    const tempLists =
+      JSON.parse(localStorage.getItem(localStorageKeys.LISTS)) || {};
     tempLists[currentValue].push(product.id);
-    localStorage.setItem("lists", JSON.stringify(tempLists));
-    setLists(() => {
-      return { data: tempLists, listName: currentValue };
-    });
+    localStorage.setItem(localStorageKeys.LISTS, JSON.stringify(tempLists));
+
+    dispatch(addProductToListAction(currentValue, product.id));
+    setName(currentValue);
+
     notifySuccess(currentValue);
   };
 
-  const removeItemFromList = () => {
-    const tempList = { ...lists.data };
-    const removeItem = tempList[lists.listName].filter(
-      (item) => item !== product.id
-    );
-    tempList[lists.listName] = removeItem;
+  const removeProductFromList = () => {
+    const tempLists =
+      JSON.parse(localStorage.getItem(localStorageKeys.LISTS)) || {};
+    const removeItem = tempLists[name].filter((item) => item !== product.id);
+    tempLists[name] = removeItem;
 
-    localStorage.setItem("lists", JSON.stringify(tempList));
-    setLists(() => {
-      return { data: tempList, listName: "" };
-    });
+    localStorage.setItem(localStorageKeys.LISTS, JSON.stringify(tempLists));
+    dispatch(removeProducFromListAction(name, product.id));
+    setName("");
+
     notify();
   };
 
   return (
     <>
-      {lists.listName ? (
+      {name ? (
         <button
-          onClick={() => removeItemFromList()}
+          onClick={() => removeProductFromList()}
           className={SavedButtonCSS.removeFromLists}
         >
-          Remove Product From "<span>{lists.listName}</span>" List
+          Remove Product From "<span>{name}</span>" List
         </button>
       ) : (
         <select
           className={SavedButtonCSS.listsSelector}
           name="listSelector"
           defaultValue=""
-          onChange={(e) => changeListForProduct(e)}
-          disabled={lists.listName}
+          onChange={(e) => addProductToList(e)}
+          disabled={name}
         >
-          <option value="" selected={lists.listName === ""} disabled hidden>
+          <option value="" disabled hidden>
             Select List
           </option>
-          {Object.keys(lists.data).map((list) => {
+          {Object.keys(lists).map((list) => {
             return (
-              <option
-                key={list}
-                value={list}
-                selected={lists.listName === list}
-              >
+              <option key={list} value={list}>
                 {list}
               </option>
             );

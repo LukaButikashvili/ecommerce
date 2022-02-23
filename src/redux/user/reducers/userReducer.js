@@ -1,8 +1,10 @@
 import statuses from "../../../config/statuses";
 import {
+  ADD_USER,
   FETCHING_USERS_STATUS_ERROR,
   FETCHING_USERS_STATUS_PENDING,
   FETCHING_USERS_STATUS_SUCCESS,
+  REMOVE_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -22,7 +24,7 @@ const userReducer = (state = initialState, action) => {
     case FETCHING_USERS_STATUS_SUCCESS: {
       return {
         ...state,
-        users: action.payload.data,
+        users: [...state.users, ...action.payload.data],
         status: statuses.SUCCESS,
       };
     }
@@ -31,6 +33,18 @@ const userReducer = (state = initialState, action) => {
         ...state,
         status: statuses.ERROR,
         errorMessage: action.payload.errorMessage,
+      };
+    }
+    case ADD_USER: {
+      return {
+        ...state,
+        users: [...state.users, action.payload.user],
+      };
+    }
+    case REMOVE_USER: {
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id != action.payload.id),
       };
     }
     default:

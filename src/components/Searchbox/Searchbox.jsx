@@ -64,6 +64,7 @@ const SearchBox = ({ data, linkPath }) => {
             suggestData.map((user) => {
               return (
                 <UsersView
+                  key={user.id}
                   firstname={user.name.firstname}
                   lastname={user.name.lastname}
                   phone={user.phone}

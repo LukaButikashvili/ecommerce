@@ -1,6 +1,8 @@
+const API = process.env.REACT_APP_API_URL;
+
 async function fetchCategories() {
   try {
-    const res = await fetch("https://fakestoreapi.com/products/categories");
+    const res = await fetch(`${API}/products/categories`);
     if (res.ok) {
       return res.json();
     }
@@ -11,7 +13,7 @@ async function fetchCategories() {
 }
 
 async function removeProduct(id) {
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`, {
+  const res = await fetch(`${API}/products/${id}`, {
     method: "DELETE",
   });
   const data = await res.json();
@@ -19,7 +21,7 @@ async function removeProduct(id) {
 }
 
 async function postProduct(product) {
-  const res = await fetch("https://fakestoreapi.com/products", {
+  const res = await fetch(`${API}/products`, {
     method: "POST",
     body: JSON.stringify(product),
   });
@@ -28,7 +30,7 @@ async function postProduct(product) {
 }
 
 async function postUser(user) {
-  const res = await fetch("https://fakestoreapi.com/users", {
+  const res = await fetch(`${API}/users`, {
     method: "POST",
     body: JSON.stringify(user),
   });
@@ -39,7 +41,7 @@ async function postUser(user) {
 }
 
 async function removeUser(id) {
-  const res = await fetch(`https://fakestoreapi.com/users/${id}`, {
+  const res = await fetch(`${API}/users/${id}`, {
     method: "DELETE",
   });
   console.log(res);
@@ -49,7 +51,7 @@ async function removeUser(id) {
 
 async function fetchUsersCarts() {
   try {
-    const res = await fetch("https://fakestoreapi.com/carts");
+    const res = await fetch(`${API}/carts`);
     if (res.ok) {
       return res.json();
     }

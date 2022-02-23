@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useDispatch } from "react-redux";
 import { removeProductFromBasketAction } from "../../redux/cart/actions/cartActions";
 import QuantityChangerButtons from "../QuantityChangerButtons/QuantityChangerButtons";
 import CartProductCSS from "./CartProduct.module.css";
+import defaultProductImage from "../../assets/defaultImages/defaultProduct.png";
 
-const CartProduct = ({ id, quantity }) => {
+const CartProduct = ({ id, quantity, cartProduct }) => {
   const dispatch = useDispatch();
-  const { products } = useSelector((state) => state.productReducer);
-
-  const [cartProduct, setCartProduct] = useState(() => {
-    const findItem = products.filter((item) => item.id === id);
-    return findItem[0];
-  });
 
   return (
     <div className={CartProductCSS.cartProductWrapper}>
       <div className={CartProductCSS.cartProductImageWrapper}>
-        <img src={cartProduct.image} alt="cloth" />
+        {cartProduct.image ? (
+          <img src={cartProduct.image} alt="cloth" />
+        ) : (
+          <img src={defaultProductImage} alt="cloth" />
+        )}
       </div>
       <div className={CartProductCSS.cartProductNameWrapper}>
         <h1>{cartProduct.title}</h1>

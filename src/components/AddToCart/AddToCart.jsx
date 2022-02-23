@@ -1,8 +1,9 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-
+import { useDispatch, useSelector } from "react-redux";
+import localStorageKeys from "../../config/localStorageKeys";
 import { addProductToBasketAction } from "../../redux/cart/actions/cartActions";
+
 import QuantityChangerButtons from "../QuantityChangerButtons/QuantityChangerButtons";
 import AddToCartCSS from "./AddToCart.module.css";
 
@@ -10,18 +11,27 @@ const notify = () => toast.success("You added Product to the Cart");
 
 const AddToCart = ({ product }) => {
   const dispatch = useDispatch();
-  const { cartProducts } = useSelector((state) => state.cartReducer);
+
+  const cart = useSelector((state) => state.cartReducer);
 
   const addProductToBasket = () => {
     const addNewProductToCart = {
       newProduct: { productId: product.id, quantity: 1 },
     };
+    dispatch(addProductToBasketAction(addNewProductToCart));
 
     notify();
-    dispatch(addProductToBasketAction(addNewProductToCart));
+
+    localStorage.setItem(
+      localStorageKeys.CART,
+      JSON.stringify({
+        ...cart,
+        cartProducts: [...cart.cartProducts, addNewProductToCart.newProduct],
+      })
+    );
   };
 
-  const findIndexOfBasketProduct = cartProducts.findIndex(
+  const findIndexOfBasketProduct = cart.cartProducts.findIndex(
     (basketProduct) => basketProduct.productId == product.id
   );
 
@@ -31,7 +41,7 @@ const AddToCart = ({ product }) => {
         <div className={AddToCartCSS.quantityChangerWrapper}>
           <QuantityChangerButtons
             id={product.id}
-            quantity={cartProducts[findIndexOfBasketProduct].quantity}
+            quantity={cart.cartProducts[findIndexOfBasketProduct].quantity}
           />
         </div>
       ) : (

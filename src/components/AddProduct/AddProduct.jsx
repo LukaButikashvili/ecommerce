@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
 import { fetchCategories, postProduct } from "../../api";
 import Modal from "../Modal/Modal";
 import { nanoid } from "nanoid";
 import AddProductCSS from "./AddProduct.module.css";
+import localStorageKeys from "../../config/localStorageKeys";
 import { addProductAction } from "../../redux/product/actions/productActions";
+
+const notify = () => toast.success("Product has been added");
 
 const AddProduct = ({ state, setState }) => {
   const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
   const [categories, setCategories] = useState([]);
 
@@ -31,6 +36,7 @@ const AddProduct = ({ state, setState }) => {
 
   const createProduct = async (e) => {
     e.preventDefault();
+    notify();
 
     const newProduct = {
       id: nanoid(),
@@ -41,13 +47,13 @@ const AddProduct = ({ state, setState }) => {
       image: e.target.img.value,
     };
 
-    const res = await postProduct(newProduct);
-    setShowModal(false);
+    dispatch(addProductAction(newProduct));
 
-    const tempProducts = JSON.parse(localStorage.getItem("products")) || [];
+    const tempProducts =
+      JSON.parse(localStorage.getItem(localStorageKeys.PRODUCTS)) || [];
     const products = [...tempProducts, newProduct];
 
-    localStorage.setItem("products", JSON.stringify(products));
+    localStorage.setItem(localStorageKeys.PRODUCTS, JSON.stringify(products));
 
     // Change localstate
     if (newProduct.category === state.filtered || state.filtered === "none") {
@@ -55,10 +61,13 @@ const AddProduct = ({ state, setState }) => {
         return { ...state, data: [...state.data, newProduct] };
       });
     }
+
+    setShowModal(false);
   };
 
   return (
     <>
+      <Toaster />
       <div className={AddProductCSS.addProductWrapper}>
         <button onClick={() => setShowModal(true)}>Add Product</button>
       </div>

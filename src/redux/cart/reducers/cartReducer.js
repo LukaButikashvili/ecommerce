@@ -36,7 +36,6 @@ const cartReducer = (state = initialState, action) => {
       let basketProducts = [...state.cartProducts];
       basketProducts[index] = {
         ...basketProducts[index],
-        date: new Date(),
         quantity: state.cartProducts[index].quantity + 1,
       };
 
@@ -52,7 +51,6 @@ const cartReducer = (state = initialState, action) => {
       let prevState = [...state.cartProducts];
       prevState[productIndex] = {
         ...prevState[productIndex],
-        date: new Date(),
         quantity: state.cartProducts[productIndex].quantity - 1,
       };
       return {

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 import PromoCode from "../PromoCode/PromoCode";
 import OrderSummaryCSS from "./OrderSummary.module.css";
 import Modal from "../Modal/Modal";
 import Payment from "../Payment/Payment";
-
-const notify = () => toast.success("You have bought products");
 
 const calculateTotalPrice = (data) => {
   let totalPrice = 0;
@@ -29,7 +27,7 @@ const OrderSummary = () => {
     let price = 0;
     cartProducts.map((cartProduct) => {
       const findProduct = products.find(
-        (item) => cartProduct.productId === item.id
+        (item) => cartProduct.productId == item.id
       );
       price = price + cartProduct.quantity * findProduct.price;
     });

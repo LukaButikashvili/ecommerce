@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 import ProductDetailsCSS from "./ProductDetails.module.css";
 import AddToCart from "../AddToCart/AddToCart";
 import SavedButton from "../SavedButton/SavedButton";
 import NotFoundPage from "../../pages/404/404";
 import RelatedProducts from "../RelatedProducts/RelatedProducts";
-import { removeProduct } from "../../api";
+import defaultProductImage from "../../assets/defaultImages/defaultProduct.png";
+import localStorageKeys from "../../config/localStorageKeys";
+import { removeProductAction } from "../../redux/product/actions/productActions";
+import { removeProductFromBasketAction } from "../../redux/cart/actions/cartActions";
+import { removeProducFromListAction } from "../../redux/lists/actions/listsActions";
 
 const notify = () => toast.error("You Deleted Product");
 
 const ProductDetails = () => {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const { id } = useParams();
 
@@ -27,7 +32,8 @@ const ProductDetails = () => {
     let findProduct = products.filter((item) => item.id == id);
 
     if (!findProduct.length) {
-      const newUsers = JSON.parse(localStorage.getItem("products")) || [];
+      const newUsers =
+        JSON.parse(localStorage.getItem(localStorageKeys.PRODUCTS)) || [];
       findProduct = newUsers.filter((user) => user.id == id);
     }
 
@@ -37,31 +43,32 @@ const ProductDetails = () => {
   const remove = async () => {
     notify();
 
-    // Remove Product From API
-    if (typeof product.id === "number") {
-      const sendRemoveRequest = await removeProduct(product.id);
-      if (sendRemoveRequest) {
-        toast.remove();
-        navigate("/");
-      }
-      return;
-    }
+    dispatch(removeProductAction(product.id));
+    dispatch(removeProductFromBasketAction(product.id));
 
     //Remove Product from localstore
-    const tempProducts = JSON.parse(localStorage.getItem("products"));
+    const tempProducts = JSON.parse(
+      localStorage.getItem(localStorageKeys.PRODUCTS)
+    );
     const newData = tempProducts.filter((item) => item.id !== product.id);
-    localStorage.setItem("products", JSON.stringify(newData));
+    localStorage.setItem(localStorageKeys.PRODUCTS, JSON.stringify(newData));
+
+    //Remove from Cart
     navigate("/");
   };
-  console.log(product);
 
   return (
     <>
+      <Toaster />
       {product ? (
         <>
           <div className={ProductDetailsCSS.productDetailsWrapper}>
             <div className={ProductDetailsCSS.imageWrapper}>
-              <img src={product.image} alt="cloth" />
+              {product.image ? (
+                <img src={product.image} alt="cloth" />
+              ) : (
+                <img src={defaultProductImage} alt="cloth" />
+              )}
             </div>
             <div className={ProductDetailsCSS.productDetailsBodyWrapper}>
               <div className={ProductDetailsCSS.titleWrapper}>
